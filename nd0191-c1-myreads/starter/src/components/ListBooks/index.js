@@ -1,21 +1,49 @@
 import CurrentReading from "../BookShelf/CurrentReading/index.js";
 import WantToRead from "../BookShelf/WantToRead/index.js";
 import Read from "../BookShelf/Read/index.js";
-import { useState } from "react";
-import { CurrentReadingShelf, WantToReadShelf, ReadShelf } from "../../Data";
+import { useState, useEffect } from "react";
+import {getAll, update} from '../../BooksAPI'
 
 const ListBooks = (props) => {
   const searchPage = props.searchPage;
 
-  const [CurrentReadings, setCurrentReadings] = useState(CurrentReadingShelf);
-  const [WantToReads, setWantToReads] = useState(WantToReadShelf);
-  const [Reads, setReads] = useState(ReadShelf);
+  const [CurrentReadings, setCurrentReadings] = useState([]);
+  const [WantToReads, setWantToReads] = useState([]);
+  const [Reads, setReads] = useState([]);
 
-  const handleShelfUpdate = (book, oldshelf, newshelf) => {
+  useEffect(() =>{
+
+    const getBooks = async () => {
+      const books = await getAll();
+
+      books.forEach((book) => {
+
+        if(book.shelf === 'read'){
+          setReads(prevReads => [...prevReads, book]);
+        }
+        if(book.shelf === 'wantToRead'){
+          setWantToReads(prevReads  =>[...prevReads, book]);
+        }
+        if(book.shelf === 'currentlyReading'){
+          setCurrentReadings( prevReads => [...prevReads, book]);
+        }
+
+      })
+
+    }
+
+    getBooks()
+
+  },[]);
+
+
+  const handleShelfUpdate = async (book, oldshelf, newshelf) => {
+
     if (oldshelf === newshelf){
       return null
     }
     const index = findIndex(book, oldshelf);
+    await update(book, newshelf)
     removeFromShelf(index, oldshelf);
     if(newshelf === 'none'){
       return null
@@ -86,10 +114,7 @@ const ListBooks = (props) => {
       </div>
       <div className="list-books-content">
         <div>
-          <CurrentReading
-            books={CurrentReadings}
-            UpdateShelf={handleShelfUpdate}
-          />
+          <CurrentReading books={CurrentReadings} UpdateShelf={handleShelfUpdate} />
           <WantToRead books={WantToReads} UpdateShelf={handleShelfUpdate} />
           <Read books={Reads} UpdateShelf={handleShelfUpdate} />
         </div>

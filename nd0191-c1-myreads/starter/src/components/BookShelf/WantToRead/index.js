@@ -21,14 +21,15 @@ const updateShelf = props.UpdateShelf;
                         style={{
                           width: 128,
                           height: 193,
-                          backgroundImage: book.bookimageurl,
+                          backgroundImage: `url(${book.imageLinks.thumbnail})`
                         }}
                       ></div>
                       <div className="book-shelf-changer">
                         <select
                           defaultValue={"wantToRead"}
-                          onChange={(e) =>{
-                            updateShelf(book,"wantToRead",e.target.value)
+                          onChange={(e) => {
+                            e.preventDefault()
+                            updateShelf(book, "wantToRead", e.target.value);
                           }}
                         >
                           <option value="none" disabled>

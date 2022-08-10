@@ -1,17 +1,13 @@
-const Read = (props) => {
-  const books = props.books;
-  const updateShelf = props.UpdateShelf;
+import {update} from '../../BooksAPI'
 
 
+const Items = (props) => {
+    const results = props.results
 
-  return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">Read</h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">
-          {books.map((book) => {
+    return (results.map((book) => {
+           // {console.log(book)}
             return (
-              <li>
+              <li key={book.title} className="books-grid">
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -19,15 +15,14 @@ const Read = (props) => {
                       style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${book.imageLinks.thumbnail})`
+                      backgroundImage: `url(${book.imageLinks.thumbnail})`,
                       }}
                     ></div>
                     <div className="book-shelf-changer">
                       <select
-                        defaultValue={"read"}
+                        defaultValue={"none"}
                         onChange={(e) => {
-                          e.preventDefault()
-                          updateShelf(book, "read", e.target.value);
+                          update(book, e.target.value);
                         }}
                       >
                         <option value="none" disabled>
@@ -47,11 +42,7 @@ const Read = (props) => {
                 </div>
               </li>
             );
-          })}
-        </ol>
-      </div>
-    </div>
-  );
-};
+          }))
+}
 
-export default Read;
+export default Items
