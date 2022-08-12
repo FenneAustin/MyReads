@@ -68,8 +68,6 @@ The search page has a text input field that may be used to find books. As the va
 
 * Starter code provided by [Udacity](https://github.com/udacity/reactnd-project-myreads-starter).
 * [React documentation](https://reactjs.org/), plus the very helpful section: [Thinking in React](https://reactjs.org/docs/thinking-in-react.html).
-* The project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). For more information on how to perform common tasks, visit [this page](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-* [OnChange event using React JS for drop down.](https://stackoverflow.com/questions/28868071/onchange-event-using-react-js-for-drop-down)
 
 
 
