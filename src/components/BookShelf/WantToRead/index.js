@@ -11,9 +11,9 @@ const updateShelf = props.UpdateShelf;
         <h2 className="bookshelf-title">Want to Read</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.map((book) => {
+            {books.map((book, i) => {
               return (
-                <li>
+                <li key={i}>
                   <div className="book">
                     <div className="book-top">
                       <div
