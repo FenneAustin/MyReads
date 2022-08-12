@@ -2,9 +2,9 @@ import {useState, useEffect} from 'react'
 import {search} from '../../BooksAPI'
 import Items from './Items'
 import '../../App.css'
+import {Link} from 'react-router-dom'
 
 const SearchBar = (props) => {
-    const searchPage = props.searchPage
 
 
     const [searchInput, setSearchInput] = useState('')
@@ -13,8 +13,11 @@ const SearchBar = (props) => {
 
     useEffect(() => {
         const searchItems = async () => {
+
           if (searchInput === ''){
-            setResults([])
+            console.log('removed')
+            setResults(() => [])
+            console.log(results)
             return null
           }
           const books = await search(searchInput,10)
@@ -25,6 +28,7 @@ const SearchBar = (props) => {
           if(books){setResults([...books])}
 
         }
+
         searchItems()
 
       },[searchInput])
@@ -38,9 +42,9 @@ const SearchBar = (props) => {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={searchPage}>
-            Close
-          </button>
+          <Link to="/">
+            <button className="close-search"></button>
+          </Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"
@@ -52,9 +56,7 @@ const SearchBar = (props) => {
         <div className="search-books-results">
           <ol className="books-grid"></ol>
 
-          { {results} ? (
-            <Items results = {results} />
-          ) : ( null ) }
+          { results.length > 0  ? <Items results={results} /> :  null}
         </div>
       </div>
     );

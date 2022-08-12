@@ -3,9 +3,10 @@ import WantToRead from "../BookShelf/WantToRead/index.js";
 import Read from "../BookShelf/Read/index.js";
 import { useState, useEffect } from "react";
 import {getAll, update} from '../../BooksAPI'
+import {Link} from 'react-router-dom'
 
 const ListBooks = (props) => {
-  const searchPage = props.searchPage;
+
 
   const [CurrentReadings, setCurrentReadings] = useState([]);
   const [WantToReads, setWantToReads] = useState([]);
@@ -114,13 +115,18 @@ const ListBooks = (props) => {
       </div>
       <div className="list-books-content">
         <div>
-          <CurrentReading books={CurrentReadings} UpdateShelf={handleShelfUpdate} />
+          <CurrentReading
+            books={CurrentReadings}
+            UpdateShelf={handleShelfUpdate}
+          />
           <WantToRead books={WantToReads} UpdateShelf={handleShelfUpdate} />
           <Read books={Reads} UpdateShelf={handleShelfUpdate} />
         </div>
       </div>
       <div className="open-search">
-        <button onClick={searchPage}>Add a book</button>
+        <button>
+          <Link to="/search">Add a book</Link>
+        </button>
       </div>
     </div>
   );

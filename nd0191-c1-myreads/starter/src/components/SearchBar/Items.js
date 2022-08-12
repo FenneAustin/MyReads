@@ -4,10 +4,10 @@ import {update} from '../../BooksAPI'
 const Items = (props) => {
     const results = props.results
 
-    return (results.map((book) => {
+    return (results.map((book, i) => {
            // {console.log(book)}
             return (
-              <li key={book.title} className="books-grid">
+              <li key={i} className="books-grid">
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -15,7 +15,7 @@ const Items = (props) => {
                       style={{
                         width: 128,
                         height: 193,
-                      backgroundImage: `url(${book.imageLinks.thumbnail})`,
+                      backgroundImage: `url(${book?.imageLinks?.thumbnail})`,
                       }}
                     ></div>
                     <div className="book-shelf-changer">
